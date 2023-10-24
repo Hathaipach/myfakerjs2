@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Data Generator</title>
+</head>
+<body>
+    <button id="generateButton">Generate Fake Data</button>
+    <table id="output">
+        <thead>
+            <tr>
+                <th>Data Type</th>
+                <th>Data Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const generateButton = document.getElementById("generateButton");
+            const output = document.querySelector("#output tbody");
+
+            generateButton.addEventListener("click", function () {
+                // Clear the table body
+                output.innerHTML = "";
+
+                // Generate fake data and display it in a table
+                for (let i = 0; i < 10; i++) { // Generates 10 records for demonstration
+                    const fakeData = {
+                        title: faker.name.prefix(),
+                        firstName: faker.name.firstName(),
+                        lastName: faker.name.lastName(),
+                        birthdate: faker.date.past().toDateString(),
+                        ID: faker.random.uuid(),
+                        gender: faker.random.arrayElement(["Male", "Female"]),
+                        mobileNo: faker.phone.phoneNumber(),
+                        email: faker.internet.email(),
+                    };
+
+                    // Create a new row in the table for each data record
+                    const row = document.createElement("tr");
+
+                    // Populate the row with the data
+                    for (const key in fakeData) {
+                        const cell1 = document.createElement("td");
+                        cell1.textContent = key;
+                        const cell2 = document.createElement("td");
+                        cell2.textContent = fakeData[key];
+                        
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                    }
+
+                    output.appendChild(row);
+                }
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+</body>
+</html>
